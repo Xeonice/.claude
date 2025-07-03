@@ -1,0 +1,5 @@
+ide/
+node_modules/
+local/
+todos/
+statsig/

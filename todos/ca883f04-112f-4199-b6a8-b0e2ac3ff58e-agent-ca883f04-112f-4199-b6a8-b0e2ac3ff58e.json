@@ -1,0 +1,8 @@
+[
+  {
+    "content": "修复ImageProcessor中slideWidth和slideHeight可能为undefined的类型错误",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  }
+]

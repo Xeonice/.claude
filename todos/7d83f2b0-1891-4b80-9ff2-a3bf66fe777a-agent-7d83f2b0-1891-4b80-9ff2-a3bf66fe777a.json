@@ -1,0 +1,38 @@
+[
+  {
+    "content": "协调多个代理并行检查 lint、build、test 状态",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "coord-1"
+  },
+  {
+    "content": "检查和修复 npm run lint 问题",
+    "status": "pending",
+    "priority": "high",
+    "id": "lint-check"
+  },
+  {
+    "content": "检查和修复 npm run build 问题",
+    "status": "pending",
+    "priority": "high",
+    "id": "build-check"
+  },
+  {
+    "content": "检查和修复 npm run test 问题",
+    "status": "pending",
+    "priority": "high",
+    "id": "test-check"
+  },
+  {
+    "content": "检查和修复 npm run type-check 问题",
+    "status": "pending",
+    "priority": "high",
+    "id": "type-check"
+  },
+  {
+    "content": "最终验证所有命令执行正常",
+    "status": "pending",
+    "priority": "medium",
+    "id": "final-verify"
+  }
+]

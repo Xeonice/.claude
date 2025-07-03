@@ -1,0 +1,20 @@
+[
+  {
+    "content": "移除 importFromJSON 中所有 PPTX 相关逻辑",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "简化 importFromJSON 只处理标准 PPTist JSON 格式",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "处理格式转换和兼容性问题",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  }
+]

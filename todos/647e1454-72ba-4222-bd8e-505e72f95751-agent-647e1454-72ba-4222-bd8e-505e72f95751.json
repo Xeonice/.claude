@@ -1,0 +1,62 @@
+[
+  {
+    "content": "生成 PPTXImageProcessor 综合测试用例",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "生成 ImageProcessingService 集成测试用例",
+    "status": "completed",
+    "priority": "medium",
+    "id": "2"
+  },
+  {
+    "content": "生成 ImageElement 数据模型测试用例",
+    "status": "completed",
+    "priority": "low",
+    "id": "3"
+  },
+  {
+    "content": "生成 ImageProcessor XML解析测试用例",
+    "status": "completed",
+    "priority": "low",
+    "id": "4"
+  },
+  {
+    "content": "生成 DebugHelper 调试系统测试用例",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "生成 ImageOffsetAdjuster 偏移调整测试用例",
+    "status": "completed",
+    "priority": "low",
+    "id": "6"
+  },
+  {
+    "content": "生成完整转换流程端到端测试用例",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "生成错误处理和边界测试用例",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  },
+  {
+    "content": "生成性能和可靠性测试用例",
+    "status": "completed",
+    "priority": "medium",
+    "id": "9"
+  },
+  {
+    "content": "运行所有测试确保通过",
+    "status": "completed",
+    "priority": "high",
+    "id": "10"
+  }
+]

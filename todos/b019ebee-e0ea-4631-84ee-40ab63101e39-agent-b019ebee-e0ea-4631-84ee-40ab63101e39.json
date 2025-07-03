@@ -1,0 +1,32 @@
+[
+  {
+    "content": "分析 ShapeProcessor.ts 的测试覆盖率缺失 (152 missing, 28 partials)",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "分析 SlideParser.ts 的测试覆盖率缺失 (35 missing, 5 partials)",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "分析 ShapeElement.ts 的测试覆盖率缺失 (10 missing, 4 partials)",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "分析其他文件的测试覆盖率缺失",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "增加针对性的测试用例",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  }
+]

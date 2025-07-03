@@ -1,0 +1,32 @@
+[
+  {
+    "content": "修复形状几何算法测试中的3个失败问题",
+    "status": "completed",
+    "priority": "high",
+    "id": "fix-shape-geometry-tests"
+  },
+  {
+    "content": "修复文本解析相关的3个测试失败",
+    "status": "completed",
+    "priority": "high",
+    "id": "fix-text-parsing-tests"
+  },
+  {
+    "content": "修复透明填充处理测试失败",
+    "status": "completed",
+    "priority": "medium",
+    "id": "fix-transparent-fill-test"
+  },
+  {
+    "content": "修复输出比较测试中的2个失败",
+    "status": "completed",
+    "priority": "medium",
+    "id": "fix-output-comparison-tests"
+  },
+  {
+    "content": "修复颜色处理性能一致性测试",
+    "status": "completed",
+    "priority": "low",
+    "id": "fix-performance-test"
+  }
+]

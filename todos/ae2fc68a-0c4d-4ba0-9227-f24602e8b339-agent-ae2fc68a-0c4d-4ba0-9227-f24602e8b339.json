@@ -1,0 +1,26 @@
+[
+  {
+    "content": "更新测试数量和类型说明",
+    "status": "pending",
+    "priority": "high",
+    "id": "readme-update-1"
+  },
+  {
+    "content": "添加新增的高级测试套件描述",
+    "status": "pending",
+    "priority": "high",
+    "id": "readme-update-2"
+  },
+  {
+    "content": "更新测试文件数量和分类",
+    "status": "pending",
+    "priority": "medium",
+    "id": "readme-update-3"
+  },
+  {
+    "content": "完善测试运行命令和覆盖率信息",
+    "status": "pending",
+    "priority": "medium",
+    "id": "readme-update-4"
+  }
+]

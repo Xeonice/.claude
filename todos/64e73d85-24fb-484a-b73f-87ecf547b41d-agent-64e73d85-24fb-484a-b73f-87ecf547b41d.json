@@ -1,0 +1,32 @@
+[
+  {
+    "content": "分析当前代码架构和新增功能特性",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "更新中文版主README (README-zh.md) - 反映850+测试和新图像处理功能",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "更新英文版主README (README.md) - 反映850+测试和新图像处理功能",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "更新英文测试README (tests/README.md) - 新增测试类别和覆盖范围",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "更新中文测试README (tests/README-cn.md) - 新增测试类别和覆盖范围",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  }
+]

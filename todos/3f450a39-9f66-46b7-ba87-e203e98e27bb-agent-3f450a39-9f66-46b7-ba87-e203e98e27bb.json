@@ -1,0 +1,26 @@
+[
+  {
+    "content": "重新分析 PowerPoint fillRect 的真实工作原理",
+    "status": "completed",
+    "priority": "high",
+    "id": "reanalyze-fillrect"
+  },
+  {
+    "content": "对比 result.png 与 target-result.png 的差异",
+    "status": "completed",
+    "priority": "high",
+    "id": "compare-with-result"
+  },
+  {
+    "content": "修正算法以匹配真实的 PowerPoint 行为",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "correct-algorithm"
+  },
+  {
+    "content": "验证修正后的逻辑",
+    "status": "pending",
+    "priority": "medium",
+    "id": "verify-corrected-logic"
+  }
+]
