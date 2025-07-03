@@ -3,3 +3,8 @@ node_modules/
 local/
 todos/
 statsig/
+projects/
+
+# 只允许这些文件同步到 git
+!commands/
+!CLAUDE.md
