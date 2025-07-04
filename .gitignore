@@ -4,6 +4,7 @@ local/
 todos/
 statsig/
 projects/
+.credentials.json
 
 # 只允许这些文件同步到 git
 !commands/
