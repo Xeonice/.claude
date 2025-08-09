@@ -7,3 +7,10 @@
 ## Communication Guidelines
 
 - 回复我的问题时，总是采用中文
+
+## Code fix
+
+- When you read the error output message when running the code:
+  - The highest priority is given to fixing the problematic code
+  - After fixing the problematic code, proceed to execute or respond to the previous task or question
+
