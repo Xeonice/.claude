@@ -5,6 +5,7 @@ todos/
 statsig/
 projects/
 .credentials.json
+shell-snapshots
 
 # 只允许这些文件同步到 git
 !commands/
