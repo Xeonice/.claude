@@ -6,6 +6,7 @@ statsig/
 projects/
 .credentials.json
 shell-snapshots
+.DS_Store
 
 # 只允许这些文件同步到 git
 !commands/
