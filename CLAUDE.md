@@ -20,4 +20,3 @@
 ## Testing and Verification
 
 - 当我需要高还原度时，请调用 playwright 做截图，与我提供的图做对比
-  w

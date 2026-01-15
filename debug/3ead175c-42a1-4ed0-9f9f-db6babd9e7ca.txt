@@ -1,0 +1,38 @@
+2026-01-15T02:30:39.536Z [DEBUG] Watching for changes in setting files /Users/tanghehui/.claude, /Users/tanghehui/ExploreProject/pptx-openxml-renderer/.claude...
+2026-01-15T02:30:39.539Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-15T02:30:39.539Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-15T02:30:39.539Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-15T02:30:39.539Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-15T02:30:39.540Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-15T02:30:39.540Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-15T02:30:39.540Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-15T02:30:39.543Z [DEBUG] Applying permission update: Adding 1 allow rule(s) to destination 'localSettings': ["mcp__sequential-thinking__sequentialthinking"]
+2026-01-15T02:30:39.544Z [DEBUG] Applying permission update: Adding 1 directory with destination 'cliArg': ["/Users/tanghehui/ExploreProject/pptxtojson/"]
+2026-01-15T02:30:39.544Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-15T02:30:39.560Z [DEBUG] Loading plugin typescript-lsp from source: "./plugins/typescript-lsp"
+2026-01-15T02:30:39.562Z [DEBUG] Using provided version for typescript-lsp@claude-plugins-official: 1.0.0
+2026-01-15T02:30:39.563Z [DEBUG] Plugin typescript-lsp@claude-plugins-official version 1.0.0 already cached at /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0
+2026-01-15T02:30:39.563Z [DEBUG] Copied local plugin typescript-lsp to versioned cache: /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0
+2026-01-15T02:30:39.563Z [DEBUG] Plugin typescript-lsp has no entry.skills defined
+2026-01-15T02:30:39.599Z [DEBUG] Loading plugin context7 from source: "./external_plugins/context7"
+2026-01-15T02:30:39.608Z [DEBUG] Watching for changes in skill directories: /Users/tanghehui/.claude/skills...
+2026-01-15T02:30:39.635Z [DEBUG] Using git SHA for context7@claude-plugins-official: ee2f72662645
+2026-01-15T02:30:39.635Z [DEBUG] Plugin context7@claude-plugins-official version ee2f72662645 already cached at /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/context7/ee2f72662645
+2026-01-15T02:30:39.635Z [DEBUG] Copied local plugin context7 to versioned cache: /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/context7/ee2f72662645
+2026-01-15T02:30:39.637Z [DEBUG] Loading plugin frontend-design from source: "./plugins/frontend-design"
+2026-01-15T02:30:39.654Z [DEBUG] Using git SHA for frontend-design@claude-plugins-official: ee2f72662645
+2026-01-15T02:30:39.654Z [DEBUG] Plugin frontend-design@claude-plugins-official version ee2f72662645 already cached at /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/frontend-design/ee2f72662645
+2026-01-15T02:30:39.654Z [DEBUG] Copied local plugin frontend-design to versioned cache: /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/frontend-design/ee2f72662645
+2026-01-15T02:30:39.655Z [DEBUG] Loading plugin playwright from source: "./external_plugins/playwright"
+2026-01-15T02:30:39.673Z [DEBUG] Using git SHA for playwright@claude-plugins-official: ee2f72662645
+2026-01-15T02:30:39.674Z [DEBUG] Plugin playwright@claude-plugins-official version ee2f72662645 already cached at /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/playwright/ee2f72662645
+2026-01-15T02:30:39.674Z [DEBUG] Copied local plugin playwright to versioned cache: /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/playwright/ee2f72662645
+2026-01-15T02:30:39.675Z [DEBUG] Loading plugin figma from source: {"source":"url","url":"https://github.com/figma/mcp-server-guide.git"}
+2026-01-15T02:30:39.675Z [DEBUG] No version found for figma@claude-plugins-official, using 'unknown'
+2026-01-15T02:30:39.675Z [DEBUG] Caching plugin from source: {"source":"url","url":"https://github.com/figma/mcp-server-guide.git"} to temporary path /Users/tanghehui/.claude/plugins/cache/temp_git_1768444239675_3uuiep
+2026-01-15T02:30:40.209Z [DEBUG] Writing to temp file: /Users/tanghehui/.claude.json.tmp.94617.1768444240209
+2026-01-15T02:30:40.209Z [DEBUG] Preserving file permissions: 100644
+2026-01-15T02:30:40.209Z [DEBUG] Temp file written successfully, size: 22866 bytes
+2026-01-15T02:30:40.209Z [DEBUG] Applied original permissions to temp file
+2026-01-15T02:30:40.209Z [DEBUG] Renaming /Users/tanghehui/.claude.json.tmp.94617.1768444240209 to /Users/tanghehui/.claude.json
+2026-01-15T02:30:40.210Z [DEBUG] File /Users/tanghehui/.claude.json written atomically

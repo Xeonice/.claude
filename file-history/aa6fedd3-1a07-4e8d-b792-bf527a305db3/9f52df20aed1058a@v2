@@ -1,0 +1,102 @@
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import globals from 'globals';
+
+export default tseslint.config(
+  // 全局忽略
+  {
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'build/**',
+      'coverage/**',
+      '*.config.js',
+      '*.config.ts',
+      'vite.config.ts',
+      '**/*.old/**',
+      '**/*.old',
+    ],
+  },
+
+  // 基础 JS 推荐规则
+  js.configs.recommended,
+
+  // TypeScript 推荐规则
+  ...tseslint.configs.recommended,
+
+  // React 配置
+  {
+    files: ['**/*.{ts,tsx}'],
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+      },
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+    rules: {
+      // React 规则
+      'react/react-in-jsx-scope': 'off', // React 17+ 不需要引入 React
+      'react/prop-types': 'off', // 使用 TypeScript 类型检查
+      'react/display-name': 'off',
+
+      // React Hooks 规则
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+
+      // TypeScript 规则
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'warn',
+      '@typescript-eslint/no-empty-function': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+
+      // 通用规则
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'prefer-const': 'warn',
+      'no-debugger': 'error',
+    },
+  },
+
+  // 测试文件特殊配置
+  {
+    files: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/setupTests.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-console': 'off',
+    },
+  },
+
+  // Prettier 配置（关闭与 Prettier 冲突的规则）
+  eslintConfigPrettier
+);

@@ -1,0 +1,398 @@
+import { OpenXMLElement } from '../../../types/OpenXMLTypes';
+import { ToJsonContext } from '../../base/IProcessor';
+import { BasePlugin, ITextProcessorPlugin, PluginType, PluginMetadata } from '../IPlugin';
+import { Plugin, InjectPlugin } from '../PluginDecorator';
+import {
+  TextProcessingResult,
+  PlaceholderInfo
+} from './types';
+import { StyleProcessorPlugin } from './StyleProcessorPlugin';
+import { ParagraphProcessorPlugin } from './ParagraphProcessorPlugin';
+import { ParagraphInfo } from '@domain/types/ElementTypes';
+
+/**
+ * 文本处理插件
+ * 协调整个文本处理流程，实现样式继承链
+ */
+@Plugin({
+  name: 'TextProcessorPlugin',
+  type: PluginType.TEXT_PROCESSOR,
+  targetProcessors: ['ShapeProcessor'],
+  priority: 100,
+  description: '协调整个文本处理流程，实现样式继承链',
+  dependencies: ['StyleProcessorPlugin', 'ParagraphProcessorPlugin', 'RunProcessorPlugin']
+})
+export class TextProcessorPlugin extends BasePlugin implements ITextProcessorPlugin {
+  // Metadata will be set by @Plugin decorator
+  metadata!: PluginMetadata;
+
+  @InjectPlugin('StyleProcessorPlugin')
+  private stylePlugin!: StyleProcessorPlugin;
+
+  @InjectPlugin('ParagraphProcessorPlugin')
+  private readonly paragraphPlugin!: ParagraphProcessorPlugin;
+
+
+  /**
+   * 处理文本元素
+   */
+  processText(
+    element: OpenXMLElement,
+    context: ToJsonContext,
+    inheritedStyle?: Record<string, any>
+  ): TextProcessingResult {
+    // 如果有占位符信息，从 inheritedStyle 中提取
+    const placeholderInfo = inheritedStyle?.placeholderInfo as
+      | PlaceholderInfo
+      | undefined;
+
+    // 1. 构建样式继承链
+    const styleChain = this.buildStyleInheritanceChain(
+      element,
+      context,
+      placeholderInfo
+    );
+
+    // 2. 获取文本内容节点 (txBody)
+    const txBodyNode = this.findNode(element, "txBody");
+    if (!txBodyNode) {
+      return {
+        paragraphs: [],
+        hasContent: false,
+        style: styleChain,
+      };
+    }
+
+    // 3. 处理 lstStyle (列表样式)
+    const lstStyleNode = this.findNode(txBodyNode, "lstStyle");
+    let finalStyleChain = styleChain;
+
+    if (lstStyleNode) {
+      // 存在 lstStyleNode
+      const hasValidListStyle = lstStyleNode.children && lstStyleNode.children.length > 0;
+
+      if (hasValidListStyle) {
+        // lstStyleNode 有内容，使用当前元素的 lstStyle
+        const listStyles = this.stylePlugin.extractListStyles(
+          lstStyleNode,
+          context
+        );
+        finalStyleChain = this.stylePlugin.mergeStyles(styleChain, listStyles);
+      } else if (placeholderInfo) {
+        // lstStyleNode 存在但为空，需要从继承链获取列表样式
+        // 继承顺序：master -> layout（layout 优先级更高，可以覆盖 master）
+
+        // 3.1 首先从母版的 textStyles 获取基础列表样式
+        const masterListStyles = this.stylePlugin.extractMasterListStyles(
+          context,
+          placeholderInfo.type
+        );
+
+        // 3.2 检查布局占位符的 lstStyle（可能包含 buNone 来覆盖母版的列表样式）
+        let layoutListStyles: Record<string, any> = {};
+        if (placeholderInfo.layoutNode) {
+          const layoutTxBody = this.findNode(placeholderInfo.layoutNode, 'txBody');
+          if (layoutTxBody) {
+            const layoutLstStyle = this.findNode(layoutTxBody, 'lstStyle');
+            if (layoutLstStyle && layoutLstStyle.children && layoutLstStyle.children.length > 0) {
+              layoutListStyles = this.stylePlugin.extractListStyles(layoutLstStyle, context);
+              console.log(
+                `[TextProcessorPlugin] Found layout lstStyle for placeholder type: ${placeholderInfo.type}`,
+                layoutListStyles
+              );
+            }
+          }
+        }
+
+        // 3.3 合并样式：先应用母版样式，再用布局样式覆盖
+        if (Object.keys(masterListStyles).length > 0 || Object.keys(layoutListStyles).length > 0) {
+          console.log(
+            `[TextProcessorPlugin] lstStyle is empty, inheriting from master for placeholder type: ${placeholderInfo.type}`,
+            { masterListStyles, layoutListStyles }
+          );
+          // 布局样式优先级更高，放在后面覆盖母版样式
+          finalStyleChain = this.stylePlugin.mergeStyles(
+            styleChain,
+            masterListStyles,
+            layoutListStyles
+          );
+        }
+      }
+    }
+
+    // 4. 将占位符信息包含在继承样式中
+    const inheritedData = {
+      ...finalStyleChain,
+      placeholderInfo: placeholderInfo,
+    };
+
+    // 5. 处理所有段落
+    const paragraphDatas = this.paragraphPlugin.processParagraphs(
+      txBodyNode,
+      context,
+      inheritedData
+    );
+
+    // 转换为 ParagraphInfo[]
+    const paragraphs: ParagraphInfo[] = paragraphDatas.map((p) => ({
+      runs: p.runs || [],
+      style: p.style || {},
+      level: p.level || 0,
+      listType: p.listType,
+      listChar: p.listChar,
+      numberType: p.numberType,
+    }));
+
+    // 4. 判断是否有内容
+    const hasContent =
+      paragraphs.length > 0 &&
+      !(paragraphs.length === 1 && paragraphs[0].runs.length === 0) &&
+      paragraphs.some((p) => p.runs.some((r) => r.text.trim() !== ""));
+
+    // 从 styleChain 中分离出不应在顶级 style 的属性
+    const {
+      listType,
+      listChar,
+      bulletFont,
+      bulletSizePercent,
+      bulletSizePoints,
+      bulletColor,
+      numberType,
+      startAt,
+      levelStyles,
+      level,
+      ...cleanStyle
+    } = styleChain || {};
+
+    return {
+      paragraphs,
+      hasContent,
+      style: cleanStyle,
+      placeholderType: placeholderInfo?.type,
+      placeholderIndex: placeholderInfo?.idx,
+    };
+  }
+
+  /**
+   * 完整的文本处理流程
+   */
+  processFullText(
+    xmlElement: OpenXMLElement,
+    context: ToJsonContext,
+    placeholderInfo?: PlaceholderInfo
+  ): TextProcessingResult {
+    // 构建带占位符信息的继承样式
+    const inheritedStyle = placeholderInfo ? { placeholderInfo } : undefined;
+    return this.processText(xmlElement, context, inheritedStyle);
+  }
+
+  /**
+   * 处理占位符文本
+   */
+  processPlaceholderText(
+    placeholderInfo: PlaceholderInfo,
+    context: ToJsonContext
+  ): TextProcessingResult {
+    // 获取占位符的默认文本
+    const placeholderText = this.getPlaceholderDefaultText(placeholderInfo.type);
+
+    // 构建占位符的样式
+    const themeStyles = this.stylePlugin.extractThemeStyles(context);
+    const masterStyles = this.stylePlugin.extractMasterStyles(context, placeholderInfo.type);
+    const placeholderStyle = { color: '#999999', fontStyle: 'italic' }; // 占位符文本的默认样式
+
+    const style = this.stylePlugin.mergeStyles(
+      themeStyles,
+      masterStyles,
+      placeholderStyle
+    );
+
+    const paragraphData: ParagraphInfo = {
+      runs: [{
+        text: placeholderText,
+        style: style || {}
+      }],
+      style: style || {},
+      level: 0
+    };
+
+    return {
+      paragraphs: [paragraphData],
+      hasContent: true, // 占位符文本算作有内容
+      style,
+      placeholderType: placeholderInfo.type,
+      placeholderIndex: placeholderInfo.idx
+    };
+  }
+
+  /**
+   * 检查是否有实际内容
+   */
+  hasActualContent(txBodyNode?: OpenXMLElement): boolean {
+    if (!txBodyNode) return false;
+
+    const pElements = this.findNodes(txBodyNode, 'p');
+    for (const pElement of pElements) {
+      const rElements = this.findNodes(pElement, 'r');
+      for (const rElement of rElements) {
+        const tElement = this.findNode(rElement, 't');
+        if (tElement?.textContent?.trim()) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * 构建样式继承链
+   */
+  buildStyleInheritanceChain(
+    xmlElement: OpenXMLElement,
+    context: ToJsonContext,
+    placeholderInfo?: PlaceholderInfo
+  ): Record<string, unknown> {
+    const styles: Array<Record<string, unknown>> = [];
+
+    // 1. 主题默认样式（最低优先级）
+    const themeStyles = this.stylePlugin.extractThemeStyles(context);
+    if (Object.keys(themeStyles).length > 0) {
+      styles.push(themeStyles);
+    }
+
+    // 2. 母版样式（基于占位符类型）
+    if (placeholderInfo?.type) {
+      const masterStyles = this.stylePlugin.extractMasterStyles(context, placeholderInfo.type);
+      console.log(
+        "🔍 Debug - Extracted master styles for type:",
+        placeholderInfo.type,
+        masterStyles
+      );
+      if (Object.keys(masterStyles).length > 0) {
+        styles.push(masterStyles);
+      }
+    }
+
+    // 3. 从占位符继承链获取样式
+    if (placeholderInfo) {
+      // 3a. 母版占位符样式
+      if (placeholderInfo.masterElement?.style) {
+        styles.push(placeholderInfo.masterElement.style);
+      }
+
+      // 3b. 布局占位符样式
+      if (placeholderInfo.layoutElement?.style) {
+        styles.push(placeholderInfo.layoutElement.style);
+      }
+    }
+
+    // 4. 当前元素的形状属性样式 (spPr)
+    const spPrNode = this.findNode(xmlElement, 'spPr');
+    if (spPrNode) {
+      const shapeStyles = this.extractShapeStyles(spPrNode, context);
+      if (Object.keys(shapeStyles).length > 0) {
+        styles.push(shapeStyles);
+      }
+    }
+
+    // 5. 文本框属性样式 (bodyPr)
+    const txBodyNode = this.findNode(xmlElement, 'txBody');
+    if (txBodyNode) {
+      const bodyPrNode = this.findNode(txBodyNode, 'bodyPr');
+      if (bodyPrNode) {
+        const bodyStyles = this.stylePlugin.extractTextBodyProperties(bodyPrNode);
+        if (Object.keys(bodyStyles).length > 0) {
+          styles.push(bodyStyles);
+        }
+      }
+    }
+
+    // 合并所有样式层
+    return this.stylePlugin.mergeStyles(...styles);
+  }
+
+  /**
+   * 从形状属性中提取样式
+   */
+  private extractShapeStyles(spPrNode: OpenXMLElement, context: ToJsonContext): Record<string, unknown> {
+    const styles: Record<string, unknown> = {};
+
+    // 背景填充
+    const solidFillNode = this.findNode(spPrNode, 'solidFill');
+    if (solidFillNode) {
+      styles.backgroundColor = this.stylePlugin.extractColor(solidFillNode, context);
+    }
+
+    // 边框
+    const lnNode = this.findNode(spPrNode, 'ln');
+    if (lnNode) {
+      const w = this.getAttribute(lnNode, 'w');
+      const lnSolidFillNode = this.findNode(lnNode, 'solidFill');
+
+      if (w) {
+        const borderWidth = parseInt(w) / 12700; // EMU to pixels
+        styles.borderWidth = `${borderWidth}px`;
+      }
+
+      if (lnSolidFillNode) {
+        styles.borderColor = this.stylePlugin.extractColor(lnSolidFillNode, context);
+      }
+
+      styles.borderStyle = 'solid';
+    }
+
+    return styles;
+  }
+
+  /**
+   * 获取占位符的默认文本
+   */
+  getPlaceholderDefaultText(type?: string): string {
+    const placeholderTexts: Record<string, string> = {
+      'title': 'Click to add title',
+      'ctrTitle': 'Click to add title',
+      'subTitle': 'Click to add subtitle',
+      'body': 'Click to add text',
+      'tbl': 'Click to add table',
+      'chart': 'Click to add chart',
+      'clipArt': 'Click to add clip art',
+      'dgm': 'Click to add diagram',
+      'media': 'Click to add media',
+      'pic': 'Click to add picture',
+      'dt': new Date().toLocaleDateString(),
+      'ftr': 'Footer',
+      'hdr': 'Header',
+      'sldNum': '1'
+    };
+
+    return placeholderTexts[type || ''] || 'Click to add content';
+  }
+
+  /**
+   * 检查是否为文本占位符
+   */
+  isTextPlaceholder(placeholderInfo?: PlaceholderInfo): boolean {
+    if (!placeholderInfo || !placeholderInfo.type) return false;
+    const textTypes = ['title', 'ctrTitle', 'body', 'subTitle', 'dt', 'ftr', 'hdr', 'sldNum'];
+    return textTypes.includes(placeholderInfo.type);
+  }
+
+  /**
+   * 查找所有匹配的子节点
+   */
+  protected findNodes(parent: OpenXMLElement, tagName: string): OpenXMLElement[] {
+    const nodes: OpenXMLElement[] = [];
+
+    if (!parent.children) return nodes;
+
+    for (const child of parent.children) {
+      const childTagName = child.tagName.split(':').pop() || child.tagName;
+      if (childTagName === tagName) {
+        nodes.push(child);
+      }
+    }
+
+    return nodes;
+  }
+}

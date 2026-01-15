@@ -1,0 +1,85 @@
+{
+  "version": 2,
+  "plugins": {
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/tanghehui/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-15T02:09:56.393Z",
+        "lastUpdated": "2026-01-15T02:09:56.393Z",
+        "gitCommitSha": "4f6ae433915555750b08e53bf7d9b29be8ce6435"
+      }
+    ],
+    "context7@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/tanghehui/.claude/plugins/cache/claude-plugins-official/context7/ee2f72662645",
+        "version": "ee2f72662645",
+        "installedAt": "2026-01-15T02:12:02.597Z",
+        "lastUpdated": "2026-01-15T02:12:27.768Z",
+        "gitCommitSha": "4f6ae433915555750b08e53bf7d9b29be8ce6435"
+      }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/tanghehui/.claude/plugins/cache/claude-plugins-official/frontend-design/ee2f72662645",
+        "version": "ee2f72662645",
+        "installedAt": "2026-01-15T02:13:27.854Z",
+        "lastUpdated": "2026-01-15T02:13:27.854Z",
+        "gitCommitSha": "ee2f7266264580ef92b04e6d02980396e0336fb5"
+      }
+    ],
+    "playwright@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/tanghehui/.claude/plugins/cache/claude-plugins-official/playwright/ee2f72662645",
+        "version": "ee2f72662645",
+        "installedAt": "2026-01-15T02:22:04.207Z",
+        "lastUpdated": "2026-01-15T02:22:04.207Z",
+        "gitCommitSha": "ee2f7266264580ef92b04e6d02980396e0336fb5"
+      }
+    ],
+    "figma@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/tanghehui/.claude/plugins/cache/claude-plugins-official/figma/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-15T02:22:05.728Z",
+        "lastUpdated": "2026-01-15T02:22:05.728Z",
+        "gitCommitSha": "20aca44ee6ba6092037e943c151c067896828360"
+      }
+    ],
+    "Notion@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/tanghehui/.claude/plugins/cache/claude-plugins-official/Notion/0.1.0",
+        "version": "0.1.0",
+        "installedAt": "2026-01-15T02:22:07.299Z",
+        "lastUpdated": "2026-01-15T02:22:07.299Z",
+        "gitCommitSha": "a7d0b05ca3f910c71dba56d4062ba781ae092e78"
+      }
+    ],
+    "hookify@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/tanghehui/.claude/plugins/cache/claude-plugins-official/hookify/ee2f72662645",
+        "version": "ee2f72662645",
+        "installedAt": "2026-01-15T02:22:07.334Z",
+        "lastUpdated": "2026-01-15T02:22:07.334Z",
+        "gitCommitSha": "ee2f7266264580ef92b04e6d02980396e0336fb5"
+      }
+    ],
+    "vercel@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/tanghehui/.claude/plugins/cache/claude-plugins-official/vercel/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-15T02:22:08.770Z",
+        "lastUpdated": "2026-01-15T02:22:08.770Z",
+        "gitCommitSha": "ae067751b4f42c97d13054211657275029ca8b6d"
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+2026-01-15T02:32:44.218Z [DEBUG] Watching for changes in setting files /Users/tanghehui/.claude, /Users/tanghehui/ExploreProject/pptx-openxml-renderer/.claude...
+2026-01-15T02:32:44.223Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-15T02:32:44.223Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-15T02:32:44.223Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-15T02:32:44.223Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-15T02:32:44.225Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-15T02:32:44.225Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-15T02:32:44.225Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-15T02:32:44.230Z [DEBUG] Applying permission update: Adding 1 allow rule(s) to destination 'localSettings': ["mcp__sequential-thinking__sequentialthinking"]
+2026-01-15T02:32:44.231Z [DEBUG] Applying permission update: Adding 1 directory with destination 'cliArg': ["/Users/tanghehui/ExploreProject/pptxtojson/"]
+2026-01-15T02:32:44.231Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-15T02:32:44.242Z [DEBUG] Loading plugin typescript-lsp from source: "./plugins/typescript-lsp"
+2026-01-15T02:32:44.242Z [DEBUG] Using provided version for typescript-lsp@claude-plugins-official: 1.0.0
+2026-01-15T02:32:44.242Z [DEBUG] Plugin typescript-lsp@claude-plugins-official version 1.0.0 already cached at /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0
+2026-01-15T02:32:44.242Z [DEBUG] Copied local plugin typescript-lsp to versioned cache: /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0
+2026-01-15T02:32:44.242Z [DEBUG] Plugin typescript-lsp has no entry.skills defined
+2026-01-15T02:32:44.244Z [DEBUG] Loading plugin context7 from source: "./external_plugins/context7"
+2026-01-15T02:32:44.251Z [DEBUG] Watching for changes in skill directories: /Users/tanghehui/.claude/skills...
+2026-01-15T02:32:44.282Z [DEBUG] Using git SHA for context7@claude-plugins-official: ee2f72662645
+2026-01-15T02:32:44.283Z [DEBUG] Plugin context7@claude-plugins-official version ee2f72662645 already cached at /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/context7/ee2f72662645
+2026-01-15T02:32:44.283Z [DEBUG] Copied local plugin context7 to versioned cache: /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/context7/ee2f72662645
+2026-01-15T02:32:44.284Z [DEBUG] Loading plugin frontend-design from source: "./plugins/frontend-design"
+2026-01-15T02:32:44.307Z [DEBUG] Using git SHA for frontend-design@claude-plugins-official: ee2f72662645
+2026-01-15T02:32:44.307Z [DEBUG] Plugin frontend-design@claude-plugins-official version ee2f72662645 already cached at /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/frontend-design/ee2f72662645
+2026-01-15T02:32:44.307Z [DEBUG] Copied local plugin frontend-design to versioned cache: /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/frontend-design/ee2f72662645
+2026-01-15T02:32:44.308Z [DEBUG] Loading plugin playwright from source: "./external_plugins/playwright"
+2026-01-15T02:32:44.330Z [DEBUG] Using git SHA for playwright@claude-plugins-official: ee2f72662645
+2026-01-15T02:32:44.330Z [DEBUG] Plugin playwright@claude-plugins-official version ee2f72662645 already cached at /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/playwright/ee2f72662645
+2026-01-15T02:32:44.330Z [DEBUG] Copied local plugin playwright to versioned cache: /Users/tanghehui/.claude/plugins/cache/claude-plugins-official/playwright/ee2f72662645
+2026-01-15T02:32:44.332Z [DEBUG] Loading plugin figma from source: {"source":"url","url":"https://github.com/figma/mcp-server-guide.git"}
+2026-01-15T02:32:44.332Z [DEBUG] No version found for figma@claude-plugins-official, using 'unknown'
+2026-01-15T02:32:44.332Z [DEBUG] Caching plugin from source: {"source":"url","url":"https://github.com/figma/mcp-server-guide.git"} to temporary path /Users/tanghehui/.claude/plugins/cache/temp_git_1768444364332_3fs6vb
